@@ -31,8 +31,25 @@ def loadDataset():
                     petal_width,
                     name2type(name.rstrip())
                 ])
-    return np.array(dataset)
+    return np.array(dataset, dtype="float64")
 
+def extractData():
+    with open("assets/iris.data", "r") as fp_data:
+        for line in fp_data:
+            try:
+                sepal_length, sepal_width, petal_length, petal_width, name = line.split(
+                    ',')
+            except ValueError:
+                pass
+            else:
+                dataset.append([
+                    sepal_length,
+                    sepal_width,
+                    petal_length,
+                    petal_width,
+                    name2type(name.rstrip())
+                ])
+    return np.array(dataset, dtype="float64")
 
 def plot_by_name(dataset, x_name, y_name):
     plt.title(x_name + " X " + y_name)
