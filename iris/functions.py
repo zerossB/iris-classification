@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
+import numpy as np
 
-dataset = {}
+dataset = []
 ds_sl = []
 ds_pl = []
 
@@ -23,36 +24,14 @@ def loadDataset():
             except ValueError:
                 pass
             else:
-                if name.rstrip() in dataset:
-                    dataset[name.rstrip()]['sepal_length'].append(
-                        float(sepal_length))
-                    dataset[name.rstrip()]['sepal_width'].append(
-                        float(sepal_width))
-                    dataset[name.rstrip()]['petal_length'].append(
-                        float(petal_length))
-                    dataset[name.rstrip()]['petal_width'].append(
-                        float(petal_width))
-                    dataset[name.rstrip()]['type'].append(
-                        name2type(name.rstrip()))
-                else:
-                    dataset[name.rstrip()] = {
-                        'sepal_length': [],
-                        'sepal_width': [],
-                        'petal_length': [],
-                        'petal_width': [],
-                        'type': []
-                    }
-    return dataset
-
-
-def extract_data(dataset, x_name, y_name):
-    ex_dataset = []
-    for item in dataset:
-        for index in range(len(dataset[item][x_name])):
-            ex_dataset.append([dataset[item][x_name][index],
-                               dataset[item][y_name][index],
-                               dataset[item]['type'][index]])
-    return ex_dataset
+                dataset.append([
+                    sepal_length,
+                    sepal_width,
+                    petal_length,
+                    petal_width,
+                    name2type(name.rstrip())
+                ])
+    return np.array(dataset)
 
 
 def plot_by_name(dataset, x_name, y_name):
